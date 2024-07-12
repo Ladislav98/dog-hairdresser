@@ -8,7 +8,7 @@ function App() {
       <GlobalStyles />
       <Routes>
         <Route element={<AppLayout />}>
-          <Route path="home" element={<h1>Home</h1>} />
+          <Route path="/" element={<h1>Home</h1>} />
         </Route>
       </Routes>
     </>
