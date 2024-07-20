@@ -1,7 +1,7 @@
 import { StyledHeader } from "./HeaderStyle";
 
 function Header() {
-  return <StyledHeader>text</StyledHeader>;
+  return <StyledHeader>Profile logo</StyledHeader>;
 }
 
 export default Header;
