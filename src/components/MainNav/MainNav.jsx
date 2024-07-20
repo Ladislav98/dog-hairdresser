@@ -3,7 +3,7 @@ import { NavList, StyledNavLink } from "./MainNavStyle";
 function MainNav() {
   return (
     <NavList>
-      <StyledNavLink>
+      <StyledNavLink to="/">
         <span>Home</span>
       </StyledNavLink>
       <StyledNavLink>
@@ -12,7 +12,7 @@ function MainNav() {
       <StyledNavLink>
         <span>Services</span>
       </StyledNavLink>
-      <StyledNavLink>
+      <StyledNavLink to="about">
         <span>About</span>
       </StyledNavLink>
     </NavList>

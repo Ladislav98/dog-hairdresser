@@ -20,4 +20,13 @@ export const StyledNavLink = styled(NavLink)`
     padding: 1.2rem 2.4rem;
     transition: all 0.3s;
   }
+
+  &:hover,
+  &:active,
+  &.active:link,
+  &.active:visited {
+    color: var(--color-grey-800);
+    background-color: var(--color-grey-50);
+    border-radius: var(--border-radius-sm);
+  }
 `;
