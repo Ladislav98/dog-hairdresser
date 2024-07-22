@@ -10,6 +10,8 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<h1>Home</h1>} />
           <Route path="about" element={<h1>about</h1>} />
+          <Route path="services" element={<h1>services</h1>} />
+          <Route path="appointment" element={<h1>appointment</h1>} />
         </Route>
       </Routes>
     </>

@@ -8,11 +8,13 @@ export const StyledAppLayout = styled.div`
 `;
 
 export const Main = styled.main`
-  max-width: 1200px;
+  padding: 3.2rem;
+  background-color: var(--color-gray-100);
+  overflow: scroll;
 `;
 
 export const Container = styled.div`
-  max-width: 120rem;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
