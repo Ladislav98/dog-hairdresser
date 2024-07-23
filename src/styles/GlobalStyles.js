@@ -74,7 +74,8 @@ const GlobalStyles = createGlobalStyle`
   
   body {
     color: var(--color-grey-700);
-  
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
     min-height: 100vh;
     line-height: 1.5;
     font-size: 16px;

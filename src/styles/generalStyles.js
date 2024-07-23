@@ -93,23 +93,35 @@ export const Heading = styled.h1`
   ${(props) =>
     props.as === "h1" &&
     css`
-      font-size: 3rem;
-      font-weight: 600;
+      font-size: 36px;
+      font-weight: 700;
     `}
 
   ${(props) =>
     props.as === "h2" &&
     css`
-      font-size: 2rem;
-      font-weight: 600;
+      font-size: 24px;
+      font-weight: 700;
     `}
 
   ${(props) =>
     props.as === "h3" &&
     css`
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
+    `}
+  ${(props) =>
+    props.type === "spaced" &&
+    css`
+      letter-spacing: 4px;
+      word-spacing: 8px;
+      text-align: center;
     `}
 
   line-height: 1.4;
+`;
+
+export const Paragraph = styled.p`
+  font-size: 16px;
+  font-weight: 400;
 `;

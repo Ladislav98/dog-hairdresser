@@ -6,14 +6,14 @@ function MainNav() {
       <StyledNavLink to="/">
         <span>Home</span>
       </StyledNavLink>
-      <StyledNavLink to="appointment">
-        <span>Appointment</span>
-      </StyledNavLink>
-      <StyledNavLink to="services">
-        <span>Services</span>
+      <StyledNavLink to="gallery">
+        <span>Our Work</span>
       </StyledNavLink>
       <StyledNavLink to="about">
         <span>About</span>
+      </StyledNavLink>
+      <StyledNavLink to="faqs">
+        <span>FAQs</span>
       </StyledNavLink>
     </NavList>
   );
