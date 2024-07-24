@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const PricingCardWrapper = styled.div`
   padding: 18px 0;
@@ -6,10 +6,32 @@ export const PricingCardWrapper = styled.div`
   border-radius: 8px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-direction: column;
-  gap: 12px;
   width: 250px;
-  background-color: var(--color-indigo-100);
+  gap: 12px;
+  background-color: var(--color-grey-200);
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: var(--color-grey-300);
+  }
+
+  ${(props) =>
+    props.variant === "blue" &&
+    css`
+      background-color: var(--color-brand-100);
+
+      &:hover {
+        background-color: var(--color-brand-200);
+      }
+    `}
+`;
+
+export const PricingCardInner = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 `;
 
 export const CardTitle = styled.h3`

@@ -5,24 +5,29 @@ import {
   CardListItem,
   CardPrice,
   CardTitle,
+  PricingCardInner,
   PricingCardWrapper,
 } from "./PricingCardStyle";
+import { Button } from "../../styles/generalStyles";
 
-function PricingCard({ cardTitle, cardPrice, cardDetails }) {
+function PricingCard({ cardTitle, cardPrice, cardDetails, variant }) {
   return (
-    <PricingCardWrapper>
-      <CardTitle>{cardTitle}</CardTitle>
-      <CardPrice>{cardPrice}</CardPrice>
-      <CardDetails>
-        <CardList>
-          {cardDetails.map((detail, index) => (
-            <CardListItem key={index}>
-              <IoMdCheckmark style={{ fontSize: "2.4rem" }} />
-              {detail}
-            </CardListItem>
-          ))}
-        </CardList>
-      </CardDetails>
+    <PricingCardWrapper variant={variant}>
+      <PricingCardInner>
+        <CardTitle>{cardTitle}</CardTitle>
+        <CardPrice>{cardPrice}</CardPrice>
+        <CardDetails>
+          <CardList>
+            {cardDetails.map((detail, index) => (
+              <CardListItem key={index}>
+                <IoMdCheckmark style={{ fontSize: "2.4rem" }} />
+                {detail}
+              </CardListItem>
+            ))}
+          </CardList>
+        </CardDetails>
+      </PricingCardInner>
+      <Button>Book now</Button>
     </PricingCardWrapper>
   );
 }
