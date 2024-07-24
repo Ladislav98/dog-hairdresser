@@ -1,3 +1,4 @@
+import PictureChanger from "../../components/PictureChanger/PictureChanger";
 import PricingSection from "../../components/PricingSection/PricingSection";
 import Section from "../../components/Section/Section";
 import { Heading } from "../../styles/generalStyles";
@@ -14,6 +15,9 @@ function Home() {
           friends. Our professional groomers ensure that your pets are pampered
           and styled to perfection.
         </Heading>
+      </Section>
+      <Section>
+        <PictureChanger />
       </Section>
       <Section
         title="Pricing plan"
