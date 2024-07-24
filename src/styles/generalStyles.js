@@ -107,7 +107,7 @@ export const Heading = styled.h1`
   ${(props) =>
     props.as === "h3" &&
     css`
-      font-size: 12px;
+      font-size: 18px;
       font-weight: 700;
     `}
   ${(props) =>
@@ -117,11 +117,19 @@ export const Heading = styled.h1`
       word-spacing: 8px;
       text-align: center;
     `}
+  ${(props) =>
+    props.type === "subheading" &&
+    css`
+      font-weight: 300;
+      text-align: center;
+      padding: 12px;
+    `}
+  ${(props) =>
+    props.type === "formsub" &&
+    css`
+      font-weight: 300;
+      padding: 12px 0;
+    `}
 
   line-height: 1.4;
-`;
-
-export const Paragraph = styled.p`
-  font-size: 16px;
-  font-weight: 400;
 `;

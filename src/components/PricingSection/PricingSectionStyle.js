@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const SyledPricingSection = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  display: flex;
+  gap: 36px;
+  justify-content: center;
+  margin: 0 auto;
 `;
