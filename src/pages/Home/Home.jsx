@@ -1,9 +1,15 @@
+import { useEffect } from "react";
 import PictureChanger from "../../components/PictureChanger/PictureChanger";
 import PricingSection from "../../components/PricingSection/PricingSection";
 import Section from "../../components/Section/Section";
 import { Heading } from "../../styles/generalStyles";
+import { getDogs } from "../../services/apiDogs";
 
 function Home() {
+  useEffect(function () {
+    getDogs().then((dogs) => console.log(dogs));
+  }, []);
+
   return (
     <>
       <Section>
@@ -28,8 +34,7 @@ function Home() {
       <Section>
         <Heading as="h2">Form</Heading>
         <Heading as="h3" type="formsub">
-          We offer two plans: the Classic plan and the Full plan. Choose the one
-          that best fits your needs.
+          Select the plan that suits your needs: Classic or Full.
         </Heading>
       </Section>
     </>

@@ -9,8 +9,8 @@ function MainNav() {
       <StyledNavLink to="gallery">
         <span>Our Work</span>
       </StyledNavLink>
-      <StyledNavLink to="about">
-        <span>About</span>
+      <StyledNavLink to="appointment">
+        <span>Appointment</span>
       </StyledNavLink>
       <StyledNavLink to="faqs">
         <span>FAQs</span>
