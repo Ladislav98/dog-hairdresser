@@ -2,6 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./components/AppLayout/AppLayout";
 import Home from "./pages/Home/Home";
+import Register from "./pages/Signup/Signup";
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
@@ -18,7 +20,8 @@ function App() {
           <Route path="faqs" element={<h1>FAQs</h1>} />
         </Route>
         <Route path="*" element={<h1>page not found</h1>} />
-        <Route path="login" element={<h1>login</h1>} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
       </Routes>
     </>
   );
