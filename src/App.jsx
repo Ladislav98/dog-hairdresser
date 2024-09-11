@@ -4,10 +4,21 @@ import AppLayout from "./components/AppLayout/AppLayout";
 import Home from "./pages/Home/Home";
 import Register from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 30,
+    },
+  },
+});
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
       <Routes>
         <Route element={<AppLayout />}>
@@ -23,7 +34,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
       </Routes>
-    </>
+    </QueryClientProvider>
   );
 }
 

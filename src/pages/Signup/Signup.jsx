@@ -17,9 +17,7 @@ function Signup() {
   return (
     <SignupLayout>
       <Logo />
-      <Heading as="h1" type="center">
-        Signup to your account
-      </Heading>
+      <Heading as="h4">Signup to your account</Heading>
       <SignupForm />
     </SignupLayout>
   );

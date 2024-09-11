@@ -18,7 +18,7 @@ function PricingSection() {
         "Haircut",
         "Styling",
       ],
-      variant: "blue",
+      $variant: "blue",
     },
   ];
 
@@ -30,7 +30,7 @@ function PricingSection() {
           cardTitle={item.title}
           cardPrice={item.price}
           cardDetails={item.details}
-          variant={item.variant}
+          $variant={item.variant}
         />
       ))}
     </SyledPricingSection>

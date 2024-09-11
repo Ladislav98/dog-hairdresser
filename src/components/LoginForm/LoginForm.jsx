@@ -5,6 +5,9 @@ import FormRowVertical from "../Form/FormRowVertical";
 import Form from "../Form/Form";
 // import { Button } from "../../styles/generalStyles";
 import styled from "styled-components";
+import { Button } from "../../styles/generalStyles";
+import { useLogin } from "./useLogin";
+import SpinnerMini from "../SpinnerMini/SpinnerMini";
 
 const Input = styled.input`
   border: 1px solid var(--color-grey-300);
@@ -15,22 +18,21 @@ const Input = styled.input`
 `;
 
 function LoginForm() {
-  const [email, setEmail] = useState("jonas@example.com");
+  const [email, setEmail] = useState("ladislav@example.com");
   const [password, setPassword] = useState("pass1234");
-  // const { login, isLoading } = useLogin();
+  const { login, isLoading } = useLogin();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
 
-    // login(
-    //   { email, password },
-    //   {
-    //     onSettled: () => {
-    //       setEmail("");
-    //       setPassword("");
-    //     },
-    //   }
+    login({ email, password });
+    //   // {
+    //   //   onSettled: () => {
+    //   //     setEmail("");
+    //   //     setPassword("");
+    //   //   },
+    //   // }
     // );
   }
 
@@ -44,7 +46,7 @@ function LoginForm() {
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          // disabled={isLoading}
+          disabled={isLoading}
         />
       </FormRowVertical>
       <FormRowVertical label="Password">
@@ -54,13 +56,13 @@ function LoginForm() {
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          // disabled={isLoading}
+          disabled={isLoading}
         />
       </FormRowVertical>
       <FormRowVertical>
-        {/* <Button size="large" disabled={isLoading}>
-          {!isLoading ? "Log in" : <SpinnerMini />}
-        </Button> */}
+        <Button size="large" disabled={isLoading}>
+          {!isLoading ? "Login" : <SpinnerMini />}
+        </Button>
       </FormRowVertical>
     </Form>
   );

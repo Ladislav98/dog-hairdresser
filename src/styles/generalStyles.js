@@ -55,11 +55,11 @@ export const Button = styled.button`
   box-shadow: var(--shadow-sm);
 
   ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variation]}
+  ${(props) => variations[props.$variation]}
 `;
 
 Button.defaultProps = {
-  variation: "primary",
+  $variation: "primary",
   size: "medium",
 };
 
@@ -111,6 +111,13 @@ export const Heading = styled.h1`
       font-weight: 700;
     `}
   ${(props) =>
+    props.as === "h4" &&
+    css`
+      font-size: 40px;
+      font-weight: 700;
+      text-align: center;
+    `}
+  ${(props) =>
     props.type === "spaced" &&
     css`
       letter-spacing: 4px;
@@ -130,11 +137,7 @@ export const Heading = styled.h1`
       font-weight: 300;
       padding: 12px 0;
     `}
-  ${(props) =>
-    props.type === "center" &&
-    css`
-      text-align: center;
-    `}
+  
 
   line-height: 1.4;
 `;

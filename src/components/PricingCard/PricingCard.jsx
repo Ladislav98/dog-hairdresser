@@ -12,7 +12,7 @@ import { Button } from "../../styles/generalStyles";
 
 function PricingCard({ cardTitle, cardPrice, cardDetails, variant }) {
   return (
-    <PricingCardWrapper variant={variant}>
+    <PricingCardWrapper $variant={variant}>
       <PricingCardInner>
         <CardTitle>{cardTitle}</CardTitle>
         <CardPrice>{cardPrice}</CardPrice>

@@ -17,7 +17,7 @@ export const PricingCardWrapper = styled.div`
   }
 
   ${(props) =>
-    props.variant === "blue" &&
+    props.$variant === "blue" &&
     css`
       background-color: var(--color-brand-100);
 
