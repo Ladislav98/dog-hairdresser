@@ -1,13 +1,10 @@
 import { useState } from "react";
-// import { useLogin } from "./useLogin";
-// import SpinnerMini from "./../../ui/SpinnerMini";
-import FormRowVertical from "../Form/FormRowVertical";
-import Form from "../Form/Form";
-// import { Button } from "../../styles/generalStyles";
+import FormRowVertical from "../components/Form/FormRowVertical";
+import Form from "../components/Form/Form";
 import styled from "styled-components";
-import { Button } from "../../styles/generalStyles";
-import { useLogin } from "./useLogin";
-import SpinnerMini from "../SpinnerMini/SpinnerMini";
+import { Button } from "../styles/generalStyles";
+import SpinnerMini from "../components/SpinnerMini/SpinnerMini";
+import useLogin from "./useLogin";
 
 const Input = styled.input`
   border: 1px solid var(--color-grey-300);
@@ -26,14 +23,15 @@ function LoginForm() {
     e.preventDefault();
     if (!email || !password) return;
 
-    login({ email, password });
-    //   // {
-    //   //   onSettled: () => {
-    //   //     setEmail("");
-    //   //     setPassword("");
-    //   //   },
-    //   // }
-    // );
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   }
 
   return (
@@ -42,7 +40,6 @@ function LoginForm() {
         <Input
           type="email"
           id="email"
-          // This makes this form better for password managers
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
