@@ -27,3 +27,7 @@ export async function getCurrentUser() {
 
   return data?.user;
 }
+
+export async function logout() {
+  await supabase.auth.signOut();
+}
