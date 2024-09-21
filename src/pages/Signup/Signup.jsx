@@ -1,16 +1,23 @@
 import { Heading } from "../../styles/generalStyles";
 import styled from "styled-components";
 import Logo from "../../components/Logo/Logo";
-import SignupForm from "../../components/SignupForm/SignupForm";
+import SignupForm from "../../authentication/SignupForm";
 
 const SignupLayout = styled.main`
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 48rem;
+  display: flex;
+  flex-direction: column;
   align-content: center;
   justify-content: center;
   gap: 3.2rem;
   background-color: var(--color-grey-50);
+
+  // selector of all children of SignupLayout
+  & > * {
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+  }
 `;
 
 function Signup() {

@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
-import Form from "../Form/Form";
-import FormRow from "../Form/FormRow";
+import Form from "../components/Form/Form";
+import FormRow from "../components/Form/FormRow";
 import styled from "styled-components";
-import { Button } from "../../styles/generalStyles";
+import { Button } from "../styles/generalStyles";
+import { useSignup } from "./useSignup";
 
 // import { useSignup } from "./useSignup";
 
@@ -17,17 +18,18 @@ const Input = styled.input`
 `;
 
 function SignupForm() {
-  // const { signup, isLoading } = useSignup();
+  const { signup, isLoading } = useSignup();
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
   function onSubmit({ fullName, email, password }) {
-    // signup(
-    //   { fullName, email, password },
-    //   {
-    //     onSettled: reset,
-    //   }
-    // );
+    signup(
+      { fullName, email, password },
+      {
+        onSettled: reset,
+      }
+    );
+    console.log({ fullName, email, password });
   }
 
   return (
@@ -36,7 +38,7 @@ function SignupForm() {
         <Input
           type="text"
           id="fullName"
-          // disabled={isLoading}
+          disabled={isLoading}
           {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
@@ -45,7 +47,7 @@ function SignupForm() {
         <Input
           type="email"
           id="email"
-          // disabled={isLoading}
+          disabled={isLoading}
           {...register("email", {
             required: "This field is required",
             pattern: {
@@ -77,7 +79,7 @@ function SignupForm() {
         <Input
           type="password"
           id="passwordConfirm"
-          // disabled={isLoading}
+          disabled={isLoading}
           {...register("passwordConfirm", {
             required: "This field is required",
             validate: (value) =>
@@ -89,14 +91,14 @@ function SignupForm() {
       <FormRow>
         {/* type is an HTML attribute! */}
         <Button
-          variation="secondary"
+          $variation="secondary"
           type="reset"
-          // disabled={isLoading}
+          disabled={isLoading}
           onClick={reset}
         >
           Cancel
         </Button>
-        {/* <Button disabled={isLoading}>Create new user</Button> */}
+        <Button>Create account</Button>
       </FormRow>
     </Form>
   );

@@ -13,5 +13,5 @@ export function useLogout() {
       navigate("/login", { replace: true });
     },
   });
-  return { logout };
+  return { logout, isLoading };
 }
