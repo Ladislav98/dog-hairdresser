@@ -2,9 +2,10 @@ import { useState } from "react";
 import FormRowVertical from "../components/Form/FormRowVertical";
 import Form from "../components/Form/Form";
 import styled from "styled-components";
-import { Button } from "../styles/generalStyles";
+import { Button, Heading } from "../styles/generalStyles";
 import SpinnerMini from "../components/SpinnerMini/SpinnerMini";
 import useLogin from "./useLogin";
+import { Link } from "react-router-dom";
 
 const Input = styled.input`
   border: 1px solid var(--color-grey-300);
@@ -15,8 +16,8 @@ const Input = styled.input`
 `;
 
 function LoginForm() {
-  const [email, setEmail] = useState("ladislav@example.com");
-  const [password, setPassword] = useState("pass1234");
+  const [email, setEmail] = useState("proba@example.com");
+  const [password, setPassword] = useState("lalalala");
   const { login, isLoading } = useLogin();
 
   function handleSubmit(e) {
@@ -61,6 +62,13 @@ function LoginForm() {
           {!isLoading ? "Login" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
+
+      <Heading as="h3" type="login">
+        {"Don't have an account? "}
+        <Link to="/register" style={{ color: "blue", fontWeight: 500 }}>
+          Sign up
+        </Link>
+      </Heading>
     </Form>
   );
 }

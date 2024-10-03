@@ -2,12 +2,9 @@ import { useForm } from "react-hook-form";
 import Form from "../components/Form/Form";
 import FormRow from "../components/Form/FormRow";
 import styled from "styled-components";
-import { Button } from "../styles/generalStyles";
+import { Button, Heading } from "../styles/generalStyles";
 import { useSignup } from "./useSignup";
-
-// import { useSignup } from "./useSignup";
-
-// Email regex: /\S+@\S+\.\S+/
+import { Link } from "react-router-dom";
 
 const Input = styled.input`
   border: 1px solid var(--color-grey-300);
@@ -19,8 +16,11 @@ const Input = styled.input`
 
 function SignupForm() {
   const { signup, isLoading } = useSignup();
-  const { register, formState, getValues, handleSubmit, reset } = useForm();
+  const { register, formState, getValues, handleSubmit, reset, watch } =
+    useForm();
   const { errors } = formState;
+
+  const formValues = watch();
 
   function onSubmit({ fullName, email, password }) {
     signup(
@@ -29,8 +29,11 @@ function SignupForm() {
         onSettled: reset,
       }
     );
-    console.log({ fullName, email, password });
   }
+
+  const isFormNotEmpty = Object.values(formValues).some(
+    (value) => value !== ""
+  );
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -89,17 +92,24 @@ function SignupForm() {
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
-        <Button
-          $variation="secondary"
-          type="reset"
-          disabled={isLoading}
-          onClick={reset}
-        >
-          Cancel
-        </Button>
-        <Button>Create account</Button>
+        {isFormNotEmpty && (
+          <Button
+            $variation="secondary"
+            type="reset"
+            disabled={isLoading}
+            onClick={reset}
+          >
+            Cancel
+          </Button>
+        )}
+        <Button disabled={isLoading}>Create account</Button>
       </FormRow>
+      <Heading as="h3" type="login">
+        {"Already have an account? "}
+        <Link to="/login" style={{ color: "blue", fontWeight: 500 }}>
+          Login
+        </Link>
+      </Heading>
     </Form>
   );
 }

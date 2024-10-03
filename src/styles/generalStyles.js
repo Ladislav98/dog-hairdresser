@@ -137,6 +137,14 @@ export const Heading = styled.h1`
       font-weight: 300;
       padding: 12px 0;
     `}
+  ${(props) =>
+    props.type === "login" &&
+    css`
+      font-size: 16px;
+      font-weight: 300;
+      margin-top: 16px;
+      text-align: center;
+    `}
   
 
   line-height: 1.4;
