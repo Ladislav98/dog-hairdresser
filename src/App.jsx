@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
+import Appointment from "./pages/Appointment/Appointment";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,10 +30,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="gallery" element={<h1>Our Work</h1>} />
-            <Route
-              path="appointment"
-              element={<h1>Schedule an appointment</h1>}
-            />
+            <Route path="appointment" element={<Appointment />} />
             <Route path="faqs" element={<h1>FAQs</h1>} />
           </Route>
         </Route>
