@@ -1,4 +1,4 @@
-import Calendar from "../../components/Calendar/Calendar";
+import Calendar from "../../components/appointments/Calendar/Calendar";
 import "react-datepicker/dist/react-datepicker.css";
 import Section from "../../components/Section/Section";
 import styled from "styled-components";
