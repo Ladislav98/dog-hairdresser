@@ -14,3 +14,18 @@ export async function createAppointment(newAppointment) {
 
   return data;
 }
+
+export async function checkAvailability(date, time) {
+  const { data, error } = await supabase
+    .from("appointments")
+    .select("*")
+    .eq("appointmentDate", date)
+    .eq("appointmentTime", time);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Failed to check availability");
+  }
+
+  return data.length === 0;
+}

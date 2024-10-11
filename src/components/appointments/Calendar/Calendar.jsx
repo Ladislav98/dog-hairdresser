@@ -7,6 +7,8 @@ import Form from "../../Form/Form";
 import { Button } from "../../../styles/generalStyles";
 import { useCreateAppointment } from "../useCreateAppointments";
 import { getCurrentUser } from "../../../services/apiAuth";
+import { checkAvailability } from "../../../services/apiAppointments";
+import toast from "react-hot-toast";
 
 function Calendar() {
   const { createAppointment, isLoading } = useCreateAppointment();
@@ -14,17 +16,22 @@ function Calendar() {
 
   const onSubmit = async (data) => {
     const { appointmentDate, appointmentTime } = data;
-    const formattedDate = format(appointmentDate, "yyyy-dd-MM");
+    const formattedDate = format(appointmentDate, "yyyy-MM-dd");
+
+    const isAvailable = await checkAvailability(formattedDate, appointmentTime);
+    if (!isAvailable) {
+      toast.error("Appointment is already taken! Please choose another time.");
+      return;
+    }
 
     const currentUser = await getCurrentUser();
     const userId = currentUser.id;
     const dogId = 4;
-    const status = "pending";
 
     createAppointment({
       userId,
       dogId,
-      status,
+      status: "reserved",
       appointmentDate: formattedDate,
       appointmentTime,
     });
