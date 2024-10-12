@@ -9,10 +9,18 @@ import { useCreateAppointment } from "../useCreateAppointments";
 import { getCurrentUser } from "../../../services/apiAuth";
 import { checkAvailability } from "../../../services/apiAppointments";
 import toast from "react-hot-toast";
+import { BsFillClockFill } from "react-icons/bs";
+import { useUser } from "../../../authentication/useUser";
 
 function Calendar() {
   const { createAppointment, isLoading } = useCreateAppointment();
-  const { control, handleSubmit } = useForm();
+  const { user } = useUser();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const onSubmit = async (data) => {
     const { appointmentDate, appointmentTime } = data;
@@ -24,16 +32,27 @@ function Calendar() {
       return;
     }
 
-    const currentUser = await getCurrentUser();
-    const userId = currentUser.id;
+    // const currentUser = await getCurrentUser();
+
+    const userId = user.id;
     const dogId = 4;
 
-    createAppointment({
-      userId,
-      dogId,
-      status: "reserved",
-      appointmentDate: formattedDate,
-      appointmentTime,
+    createAppointment(
+      {
+        userId,
+        dogId,
+        status: "reserved",
+        appointmentDate: formattedDate,
+        appointmentTime,
+      },
+      {
+        onSettled: reset(),
+      }
+    );
+  };
+  const onError = (errors) => {
+    Object.values(errors).forEach((error) => {
+      toast.error(error.message);
     });
   };
 
@@ -49,38 +68,38 @@ function Calendar() {
   ];
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <StyledDatePicker>
         <FaCalendarAlt />
         <Controller
           control={control}
           name="appointmentDate"
           defaultValue={null}
+          rules={{ required: "Please select a date." }}
           render={({ field }) => (
             <DatePicker
               {...field}
               dateFormat="dd/MM/yyyy"
               selected={field.value}
               onChange={field.onChange}
-              placeholderText="Select a date"
               minDate={new Date()}
               maxDate={addDays(new Date(), 30)}
             />
           )}
         />
+        {errors.appointmentDate && toast.error(errors.appointmentDate.message)}
         <CalendarText>Pick the date</CalendarText>
       </StyledDatePicker>
       <StyledDatePicker>
-        <FaCalendarAlt />
+        <BsFillClockFill />
         <Controller
           control={control}
           name="appointmentTime"
           defaultValue=""
+          rules={{ required: "Please select a time." }}
           render={({ field }) => (
             <select {...field}>
-              <option value="" disabled>
-                Select appointment time
-              </option>
+              <option value="" disabled></option>
               {timePeriod.map((period, index) => (
                 <option key={index} value={period}>
                   {period}

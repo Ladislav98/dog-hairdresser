@@ -1,5 +1,6 @@
 import { useLogout } from "../../authentication/useLogout";
 import { Button } from "../../styles/generalStyles";
+import UserAvatar from "../UserAvatar/UserAvatar";
 import { StyledHeader } from "./HeaderStyle";
 
 function Header() {
@@ -7,6 +8,7 @@ function Header() {
 
   return (
     <StyledHeader>
+      <UserAvatar />
       <Button onClick={logout} disabled={isLoading}>
         Logout
       </Button>
