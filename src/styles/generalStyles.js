@@ -149,3 +149,13 @@ export const Heading = styled.h1`
 
   line-height: 1.4;
 `;
+
+//////////////////////////////////////////
+//INPUT
+export const Input = styled.input`
+  border: 1px solid var(--color-grey-300);
+  background-color: var(--color-grey-0);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  padding: 8px 12px;
+`;

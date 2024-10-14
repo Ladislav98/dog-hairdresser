@@ -3,8 +3,7 @@ import { useState } from "react";
 import Form from "../Form/Form";
 import FormRow from "../Form/FormRow";
 import FileInput from "../FileInput/FileInput";
-import Input from "../Input/Input";
-import { Button } from "../../styles/generalStyles";
+import { Button, Input } from "../../styles/generalStyles";
 import { useUser } from "../../authentication/useUser";
 import { useUpdateUser } from "../../authentication/useUpdateUser";
 

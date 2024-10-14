@@ -1,19 +1,10 @@
 import { useState } from "react";
 import FormRowVertical from "../components/Form/FormRowVertical";
 import Form from "../components/Form/Form";
-import styled from "styled-components";
-import { Button, Heading } from "../styles/generalStyles";
+import { Button, Heading, Input } from "../styles/generalStyles";
 import SpinnerMini from "../components/SpinnerMini/SpinnerMini";
 import useLogin from "./useLogin";
 import { Link } from "react-router-dom";
-
-const Input = styled.input`
-  border: 1px solid var(--color-grey-300);
-  background-color: var(--color-grey-0);
-  border-radius: var(--border-radius-sm);
-  box-shadow: var(--shadow-sm);
-  padding: 0.8rem 1.2rem;
-`;
 
 function LoginForm() {
   const [email, setEmail] = useState("proba@example.com");
