@@ -1,14 +1,13 @@
 import { useState } from "react";
 
-import Form from "../Form/Form";
-import FormRow from "../Form/FormRow";
-import FileInput from "../FileInput/FileInput";
-import { Button, Input } from "../../styles/generalStyles";
-import { useUser } from "../../authentication/useUser";
-import { useUpdateUser } from "../../authentication/useUpdateUser";
+import Form from "../components/Form/Form";
+import FormRow from "../components/Form/FormRow";
+import FileInput from "../components/FileInput/FileInput";
+import { Button, Input } from "../styles/generalStyles";
+import { useUser } from "./useUser";
+import { useUpdateUser } from "./useUpdateUser";
 
 function UpdateUserDataForm() {
-  // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
   const {
     user: {
       email,

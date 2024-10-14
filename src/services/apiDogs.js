@@ -9,3 +9,15 @@ export async function getDogs() {
   }
   return dogs;
 }
+
+export async function createDog({ dogName, breed, age, weight, userId }) {
+  const { data: dog, error } = await supabase
+    .from("dogs")
+    .insert([{ dogName, breed, age, weight, userId }]);
+
+  if (error) {
+    console.error(error);
+    throw new Error("An error occurred while creating a dog");
+  }
+  return dog;
+}
