@@ -6,7 +6,6 @@ import { useForm, Controller } from "react-hook-form";
 import Form from "../../Form/Form";
 import { Button } from "../../../styles/generalStyles";
 import { useCreateAppointment } from "../useCreateAppointments";
-import { getCurrentUser } from "../../../services/apiAuth";
 import { checkAvailability } from "../../../services/apiAppointments";
 import toast from "react-hot-toast";
 import { BsFillClockFill } from "react-icons/bs";

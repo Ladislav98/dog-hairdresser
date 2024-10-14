@@ -1,5 +1,11 @@
+import UpdateUserDataForm from "../../components/UpdateUserDataForm/UpdateUserDataForm";
+
 function Account() {
-  return <div>acc</div>;
+  return (
+    <div>
+      <UpdateUserDataForm />
+    </div>
+  );
 }
 
 export default Account;
