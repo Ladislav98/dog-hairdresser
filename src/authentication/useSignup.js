@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export function useSignup() {
   const navigate = useNavigate();
 
-  const { mutate: signup, isLoading } = useMutation({
+  const { mutate: signup, isLoading: isUpdating } = useMutation({
     mutationFn: signupApi,
     onSuccess: () => {
       toast.success("Account created successfully");
@@ -14,5 +14,5 @@ export function useSignup() {
     },
   });
 
-  return { signup, isLoading };
+  return { signup, isUpdating };
 }
