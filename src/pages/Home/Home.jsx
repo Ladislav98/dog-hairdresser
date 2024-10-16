@@ -1,15 +1,9 @@
-import { useEffect } from "react";
 import PictureChanger from "../../components/PictureChanger/PictureChanger";
 import PricingSection from "../../components/PricingSection/PricingSection";
 import Section from "../../components/Section/Section";
 import { Heading } from "../../styles/generalStyles";
-import { getDogs } from "../../services/apiDogs";
 
 function Home() {
-  useEffect(function () {
-    getDogs().then((dogs) => console.log(dogs));
-  }, []);
-
   return (
     <>
       <Section>

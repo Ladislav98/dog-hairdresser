@@ -10,10 +10,12 @@ import { checkAvailability } from "../../../services/apiAppointments";
 import toast from "react-hot-toast";
 import { BsFillClockFill } from "react-icons/bs";
 import { useUser } from "../../../authentication/useUser";
+import { useGetDogsFromUser } from "../../dogs/useGetDogsFromUser";
 
 function Calendar() {
-  const { createAppointment, isLoading } = useCreateAppointment();
+  const { createAppointment, isLoading: isCreating } = useCreateAppointment();
   const { user } = useUser();
+  const { usersDog } = useGetDogsFromUser(user?.id);
   const {
     control,
     handleSubmit,
@@ -22,7 +24,7 @@ function Calendar() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const { appointmentDate, appointmentTime } = data;
+    const { appointmentDate, appointmentTime, dogId } = data;
     const formattedDate = format(appointmentDate, "yyyy-MM-dd");
 
     const isAvailable = await checkAvailability(formattedDate, appointmentTime);
@@ -34,8 +36,6 @@ function Calendar() {
     // const currentUser = await getCurrentUser();
 
     const userId = user.id;
-    const dogId = 4;
-
     createAppointment(
       {
         userId,
@@ -109,7 +109,28 @@ function Calendar() {
         />
         <CalendarText>Pick the time</CalendarText>
       </StyledDatePicker>
-      <Button type="submit" disabled={isLoading}>
+      <div>
+        <Controller
+          control={control}
+          name="dogId"
+          defaultValue=""
+          rules={{ required: "Please select your dog." }}
+          render={({ field }) => (
+            <select {...field}>
+              <option value="" disabled>
+                Select your dog
+              </option>
+              {usersDog?.map((dog) => (
+                <option key={dog.id} value={dog.id} style={{ color: "white" }}>
+                  {dog.name}
+                </option>
+              ))}
+            </select>
+          )}
+        />
+        {errors.dogId && toast.error(errors.dogId.message)}
+      </div>
+      <Button type="submit" disabled={isCreating}>
         Submit
       </Button>
     </Form>

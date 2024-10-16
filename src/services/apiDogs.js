@@ -21,3 +21,17 @@ export async function createDog({ dogName, breed, age, weight, userId }) {
   }
   return dog;
 }
+
+export async function getDogsForUser(userId) {
+  const { data: userDogs, error } = await supabase
+    .from("dogs")
+    .select("id, dogName")
+    .eq("userId", userId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("An error occurred while fetching dogs");
+  }
+
+  return userDogs || [];
+}
