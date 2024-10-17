@@ -1,23 +1,22 @@
-import Calendar from "../../components/appointments/Calendar/Calendar";
+import AppointmentSelection from "../../components/appointments/AppointmentSelection/AppointmentSelection";
 import "react-datepicker/dist/react-datepicker.css";
 import Section from "../../components/Section/Section";
 import styled from "styled-components";
 
-const DateAndTimePicker = styled.div`
+const StyledAppointment = styled.div`
   display: flex;
-  flex-direction: column;
-  border: 1px solid var(--color-grey-300);
-  width: 450px;
+  flex-direction: row;
   padding: 16px;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 function Appointment() {
   return (
     <Section title="Book an appointment">
-      <DateAndTimePicker>
-        <Calendar />
-      </DateAndTimePicker>
+      <StyledAppointment>
+        <AppointmentSelection />
+      </StyledAppointment>
     </Section>
   );
 }

@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
-export const StyledDatePicker = styled.div`
+export const StyledAppointmentSelection = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 12px;
+  width: 240px;
 
   .react-datepicker {
     font-size: 16px;
@@ -35,9 +37,4 @@ export const StyledDatePicker = styled.div`
     border-left-color: #ccc;
     right: 16px;
   }
-`;
-
-export const CalendarText = styled.p`
-  font-size: 16px;
-  font-weight: 300;
 `;
