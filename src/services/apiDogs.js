@@ -25,7 +25,7 @@ export async function createDog({ dogName, breed, age, weight, userId }) {
 export async function getDogsForUser(userId) {
   const { data: userDogs, error } = await supabase
     .from("dogs")
-    .select("id, dogName")
+    .select("id, dogName, breed")
     .eq("userId", userId);
 
   if (error) {
