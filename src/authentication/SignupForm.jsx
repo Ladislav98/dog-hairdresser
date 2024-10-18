@@ -6,7 +6,7 @@ import { useSignup } from "./useSignup";
 import { Link } from "react-router-dom";
 
 function SignupForm() {
-  const { signup, isLoading } = useSignup();
+  const { signup, isUpdating } = useSignup();
   const { register, formState, getValues, handleSubmit, reset, watch } =
     useForm();
   const { errors } = formState;
@@ -17,7 +17,7 @@ function SignupForm() {
     signup(
       { fullName, email, password },
       {
-        onSettled: reset,
+        onSuccess: reset,
       }
     );
   }
@@ -32,7 +32,7 @@ function SignupForm() {
         <Input
           type="text"
           id="fullName"
-          disabled={isLoading}
+          disabled={isUpdating}
           {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
@@ -41,7 +41,7 @@ function SignupForm() {
         <Input
           type="email"
           id="email"
-          disabled={isLoading}
+          disabled={isUpdating}
           {...register("email", {
             required: "This field is required",
             pattern: {
@@ -73,7 +73,7 @@ function SignupForm() {
         <Input
           type="password"
           id="passwordConfirm"
-          disabled={isLoading}
+          disabled={isUpdating}
           {...register("passwordConfirm", {
             required: "This field is required",
             validate: (value) =>
@@ -87,13 +87,13 @@ function SignupForm() {
           <Button
             $variation="secondary"
             type="reset"
-            disabled={isLoading}
+            disabled={isUpdating}
             onClick={reset}
           >
             Cancel
           </Button>
         )}
-        <Button disabled={isLoading}>Create account</Button>
+        <Button disabled={isUpdating}>Create account</Button>
       </FormRow>
       <Heading as="h3" type="login">
         {"Already have an account? "}

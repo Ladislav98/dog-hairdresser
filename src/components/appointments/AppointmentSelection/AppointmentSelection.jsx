@@ -132,11 +132,7 @@ function AppointmentSelection() {
                   Select your dog
                 </option>
                 {usersDog?.map((dog) => (
-                  <option
-                    key={dog.id}
-                    value={dog.id}
-                    style={{ color: "white" }}
-                  >
+                  <option key={dog.id} value={dog.id}>
                     {dog.dogName}
                   </option>
                 ))}

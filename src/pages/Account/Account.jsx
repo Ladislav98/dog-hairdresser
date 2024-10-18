@@ -1,6 +1,7 @@
 import UpdatePasswordForm from "../../authentication/UpdatePasswordForm";
 import UpdateUserDataForm from "../../authentication/UpdateUserDataForm";
-import DogDataForm from "../../components/dogs/DogDataForm/DogDataForm";
+import DogCard from "../../components/DogCard/DogCard";
+// import DogDataForm from "../../components/dogs/DogDataForm/DogDataForm";
 import { Heading } from "../../styles/generalStyles";
 
 function Account() {
@@ -12,7 +13,7 @@ function Account() {
       <UpdateUserDataForm />
 
       <Heading as="h3">Create or update dog data</Heading>
-      <DogDataForm />
+      <DogCard />
 
       <Heading as="h3">Update password</Heading>
       <UpdatePasswordForm />

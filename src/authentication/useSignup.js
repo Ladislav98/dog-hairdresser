@@ -12,6 +12,9 @@ export function useSignup() {
       toast.success("Account created successfully");
       navigate("/", { replace: true });
     },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 
   return { signup, isUpdating };
