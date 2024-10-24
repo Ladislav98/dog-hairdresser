@@ -1,3 +1,4 @@
+import DatePicker from "react-datepicker";
 import styled from "styled-components";
 
 export const StyledAppointmentSelection = styled.div`
@@ -36,5 +37,40 @@ export const StyledAppointmentSelection = styled.div`
   .react-datepicker__navigation--next {
     border-left-color: #ccc;
     right: 16px;
+  }
+`;
+
+export const StyledDatePicker = styled(DatePicker)`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--color-grey-300);
+  border-radius: 5px;
+  color: var(--color-grey-700);
+  margin: 0;
+  transition: border-color 0.2s ease-in-out;
+
+  &:focus {
+    border-color: var(--color-indigo-700);
+    margin: 0;
+  }
+
+  &::placeholder {
+    color: var(--color-grey-700);
+  }
+`;
+
+export const StyledSelect = styled.select`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--color-grey-300);
+  border-radius: 5px;
+  color: var(--color-grey-700);
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+
+  &:focus {
+    border-color: var(--color-indigo-700);
   }
 `;

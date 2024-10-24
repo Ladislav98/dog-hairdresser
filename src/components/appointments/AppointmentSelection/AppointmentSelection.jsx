@@ -1,6 +1,9 @@
-import DatePicker from "react-datepicker";
 import { FaCalendarAlt, FaDog } from "react-icons/fa";
-import { StyledAppointmentSelection } from "./AppointmentSelectionStyle";
+import {
+  StyledAppointmentSelection,
+  StyledDatePicker,
+  StyledSelect,
+} from "./AppointmentSelectionStyle";
 import { addDays, format } from "date-fns";
 import { useForm, Controller } from "react-hook-form";
 import Form from "../../Form/Form";
@@ -12,17 +15,42 @@ import { BsFillClockFill } from "react-icons/bs";
 import { useUser } from "../../../authentication/useUser";
 import { useGetDogsFromUser } from "../../dogs/useGetDogsFromUser";
 import FormRow from "../../Form/FormRow";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 function AppointmentSelection() {
   const { createAppointment, isLoading: isCreating } = useCreateAppointment();
   const { user } = useUser();
   const { usersDog } = useGetDogsFromUser(user?.id);
+  const location = useLocation();
+  const { price: initialPrice, serviceName: initialServiceName } =
+    location.state || {
+      price: "",
+      serviceName: "",
+    };
+
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
+
+  const [serviceName, setServiceName] = useState(initialServiceName);
+  const [price, setPrice] = useState(initialPrice);
+
+  const serviceOptions = [
+    { name: "Classic Plan", price: "50€" },
+    { name: "Full Plan", price: "120€" },
+  ];
+
+  const handleServiceChange = (e) => {
+    const selectedService = serviceOptions.find(
+      (service) => service.name === e.target.value
+    );
+    setServiceName(selectedService ? selectedService.name : "");
+    setPrice(selectedService ? selectedService.price : "");
+  };
 
   const onSubmit = async (data) => {
     const { appointmentDate, appointmentTime, dogId } = data;
@@ -44,6 +72,8 @@ function AppointmentSelection() {
         status: "reserved",
         appointmentDate: formattedDate,
         appointmentTime,
+        serviceName,
+        price,
       },
       {
         onSettled: reset(),
@@ -78,7 +108,7 @@ function AppointmentSelection() {
             defaultValue={null}
             rules={{ required: "Please select a date." }}
             render={({ field }) => (
-              <DatePicker
+              <StyledDatePicker
                 {...field}
                 dateFormat="dd/MM/yyyy"
                 selected={field.value}
@@ -103,7 +133,7 @@ function AppointmentSelection() {
             defaultValue=""
             rules={{ required: "Please select a time." }}
             render={({ field }) => (
-              <select {...field}>
+              <StyledSelect {...field}>
                 <option value="" disabled>
                   Select a time
                 </option>
@@ -112,7 +142,7 @@ function AppointmentSelection() {
                     {period}
                   </option>
                 ))}
-              </select>
+              </StyledSelect>
             )}
           />
         </StyledAppointmentSelection>
@@ -127,7 +157,7 @@ function AppointmentSelection() {
             defaultValue=""
             rules={{ required: "Please select your dog." }}
             render={({ field }) => (
-              <select {...field}>
+              <StyledSelect {...field}>
                 <option value="" disabled>
                   Select your dog
                 </option>
@@ -136,11 +166,34 @@ function AppointmentSelection() {
                     {dog.dogName}
                   </option>
                 ))}
-              </select>
+              </StyledSelect>
             )}
           />
           {errors.dogId && toast.error(errors.dogId.message)}
         </StyledAppointmentSelection>
+      </FormRow>
+
+      <FormRow>
+        <div>
+          <label>Service Name:</label>
+          <StyledSelect onChange={handleServiceChange} value={serviceName}>
+            <option value="" disabled>
+              Select a service
+            </option>
+            {serviceOptions.map((service) => (
+              <option key={service.name} value={service.name}>
+                {service.name}
+              </option>
+            ))}
+          </StyledSelect>
+        </div>
+      </FormRow>
+
+      <FormRow>
+        <div>
+          <label>Price:</label>
+          <p> {price}</p>
+        </div>
       </FormRow>
 
       <FormRow>

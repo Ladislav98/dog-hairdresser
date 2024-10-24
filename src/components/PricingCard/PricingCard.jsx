@@ -9,8 +9,16 @@ import {
   PricingCardWrapper,
 } from "./PricingCardStyle";
 import { Button } from "../../styles/generalStyles";
+import { useNavigate } from "react-router-dom";
 
 function PricingCard({ cardTitle, cardPrice, cardDetails, variant }) {
+  const navigate = useNavigate();
+
+  const handleBookingClick = () => {
+    navigate("/appointment", {
+      state: { price: cardPrice, serviceName: cardTitle },
+    });
+  };
   return (
     <PricingCardWrapper $variant={variant}>
       <PricingCardInner>
@@ -27,7 +35,7 @@ function PricingCard({ cardTitle, cardPrice, cardDetails, variant }) {
           </CardList>
         </CardDetails>
       </PricingCardInner>
-      <Button>Book now</Button>
+      <Button onClick={handleBookingClick}>Book now</Button>
     </PricingCardWrapper>
   );
 }

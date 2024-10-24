@@ -25,12 +25,12 @@ function Home() {
       >
         <PricingSection />
       </Section>
-      <Section>
+      {/* <Section>
         <Heading as="h2">Form</Heading>
         <Heading as="h3" type="formsub">
           Select the plan that suits your needs: Classic or Full.
         </Heading>
-      </Section>
+      </Section> */}
     </>
   );
 }
