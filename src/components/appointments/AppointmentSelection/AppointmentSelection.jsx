@@ -40,8 +40,8 @@ function AppointmentSelection() {
   const [price, setPrice] = useState(initialPrice);
 
   const serviceOptions = [
-    { name: "Classic Plan", price: "50€" },
-    { name: "Full Plan", price: "120€" },
+    { name: "Classic Plan", price: 50 },
+    { name: "Full Plan", price: 120 },
   ];
 
   const handleServiceChange = (e) => {
@@ -189,12 +189,14 @@ function AppointmentSelection() {
         </div>
       </FormRow>
 
-      <FormRow>
-        <div>
-          <label>Price:</label>
-          <p> {price}</p>
-        </div>
-      </FormRow>
+      {serviceName && (
+        <FormRow>
+          <div>
+            <label>Price:</label>
+            <p> {price}€</p>
+          </div>
+        </FormRow>
+      )}
 
       <FormRow>
         <Button
