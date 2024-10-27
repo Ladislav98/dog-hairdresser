@@ -1,5 +1,6 @@
 import { FaCalendarAlt, FaDog } from "react-icons/fa";
 import {
+  AdditionalInfo,
   StyledAppointmentSelection,
   StyledDatePicker,
   StyledSelect,
@@ -16,18 +17,16 @@ import { useUser } from "../../../authentication/useUser";
 import { useGetDogsFromUser } from "../../dogs/useGetDogsFromUser";
 import FormRow from "../../Form/FormRow";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AppointmentSelection() {
   const { createAppointment, isLoading: isCreating } = useCreateAppointment();
   const { user } = useUser();
   const { usersDog } = useGetDogsFromUser(user?.id);
   const location = useLocation();
-  const { price: initialPrice, serviceName: initialServiceName } =
-    location.state || {
-      price: "",
-      serviceName: "",
-    };
+
+  const initialServiceName = location.state?.serviceName || "";
+  const initialPrice = location.state?.price || "";
 
   const {
     control,
@@ -38,23 +37,53 @@ function AppointmentSelection() {
 
   const [serviceName, setServiceName] = useState(initialServiceName);
   const [price, setPrice] = useState(initialPrice);
+  const [selectedDogSize, setSelectedDogSize] = useState(null);
 
   const serviceOptions = [
     { name: "Classic Plan", price: 50 },
     { name: "Full Plan", price: 120 },
   ];
 
+  useEffect(() => {
+    if (serviceName && selectedDogSize) {
+      const selectedService = serviceOptions.find(
+        (service) => service.name === serviceName
+      );
+      const basePrice = selectedService ? selectedService.price : 0;
+      const adjustedPrice =
+        selectedDogSize === "Large" ? basePrice * 1.05 : basePrice;
+      setPrice(adjustedPrice.toFixed(2));
+    } else {
+      setPrice("");
+    }
+  }, [serviceName, selectedDogSize, serviceOptions]);
+
+  const handleDogChange = (e) => {
+    const selectedDogId = Number(e.target.value);
+    const selectedDog = usersDog.find((dog) => dog.id === selectedDogId);
+    setSelectedDogSize(selectedDog ? selectedDog.dog_size : null);
+  };
+
   const handleServiceChange = (e) => {
-    const selectedService = serviceOptions.find(
-      (service) => service.name === e.target.value
-    );
-    setServiceName(selectedService ? selectedService.name : "");
-    setPrice(selectedService ? selectedService.price : "");
+    setServiceName(e.target.value);
+  };
+
+  const handleCancel = () => {
+    setServiceName(initialServiceName);
+    setPrice(initialPrice);
+    setSelectedDogSize(null);
+
+    reset();
   };
 
   const onSubmit = async (data) => {
     const { appointmentDate, appointmentTime, dogId } = data;
     const formattedDate = format(appointmentDate, "yyyy-MM-dd");
+
+    if (!serviceName) {
+      toast.error("Please select a service plan.");
+      return;
+    }
 
     const isAvailable = await checkAvailability(formattedDate, appointmentTime);
     if (!isAvailable) {
@@ -76,7 +105,7 @@ function AppointmentSelection() {
         price,
       },
       {
-        onSettled: reset(),
+        onSettled: handleCancel,
       }
     );
   };
@@ -157,7 +186,13 @@ function AppointmentSelection() {
             defaultValue=""
             rules={{ required: "Please select your dog." }}
             render={({ field }) => (
-              <StyledSelect {...field}>
+              <StyledSelect
+                {...field}
+                onChange={(e) => {
+                  handleDogChange(e);
+                  field.onChange(e);
+                }}
+              >
                 <option value="" disabled>
                   Select your dog
                 </option>
@@ -189,11 +224,14 @@ function AppointmentSelection() {
         </div>
       </FormRow>
 
-      {serviceName && (
+      {serviceName && selectedDogSize && (
         <FormRow>
           <div>
             <label>Price:</label>
             <p> {price}€</p>
+            {selectedDogSize === "Large" && (
+              <AdditionalInfo>Additional 5% fee for large dog</AdditionalInfo>
+            )}
           </div>
         </FormRow>
       )}
@@ -203,7 +241,7 @@ function AppointmentSelection() {
           $variation="secondary"
           type="button"
           disabled={isCreating}
-          onClick={reset}
+          onClick={handleCancel}
         >
           Cancel
         </Button>

@@ -74,3 +74,10 @@ export const StyledSelect = styled.select`
     border-color: var(--color-indigo-700);
   }
 `;
+
+export const AdditionalInfo = styled.p`
+  font-size: 12px;
+  font-weight: 300;
+  margin-top: 8px;
+  color: var(--color-grey-500);
+`;
