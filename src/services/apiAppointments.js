@@ -29,3 +29,25 @@ export async function checkAvailability(date, time) {
 
   return data.length === 0;
 }
+
+export async function getAppointmentsForUser(userId) {
+  if (!userId) {
+    console.error("User ID is undefined");
+    return [];
+  }
+  console.log("Fetching appointments for user:", userId);
+
+  const { data, error } = await supabase
+    .from("appointments")
+    .select("*,dogs(dogName)") // Include the dogName from the dogs table that is related to the appointments table
+    .eq("userId", userId)
+    .order("appointmentDate", { ascending: false });
+
+  if (error) {
+    console.log(error);
+    throw new Error("Failed to fetch appointments for user");
+  }
+
+  console.log("Fetched appointments:", data);
+  return data;
+}

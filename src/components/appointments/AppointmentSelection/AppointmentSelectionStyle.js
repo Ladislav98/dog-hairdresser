@@ -81,3 +81,9 @@ export const AdditionalInfo = styled.p`
   margin-top: 8px;
   color: var(--color-grey-500);
 `;
+
+export const VerticalDivider = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 56px;
+`;
