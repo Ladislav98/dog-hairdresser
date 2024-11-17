@@ -1,4 +1,11 @@
-import { ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from "recharts";
+import {
+  ResponsiveContainer,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+} from "recharts";
 import { useSpendingDogData } from "../useSpendingDogData";
 import styled from "styled-components";
 import { Heading } from "../../../styles/generalStyles";
@@ -9,6 +16,8 @@ const ChartBox = styled.div`
   border-radius: var(--border-radius-md);
 
   padding: 18px 24px;
+
+  width: 320px;
 
   & > *:first-child {
     margin-bottom: 1.6rem;
@@ -38,12 +47,13 @@ function DogSpendingChart({ userId }) {
 
   return (
     <ChartBox>
-      <Heading as="h2">Spending by dog</Heading>
+      <Heading as="h3">Spending by dog</Heading>
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
           <Pie
             data={spendingData}
             dataKey="total_spent"
+            nameKey="dog_name"
             cx="50%"
             cy="50%"
             outerRadius={80}
@@ -58,6 +68,14 @@ function DogSpendingChart({ userId }) {
             ))}
           </Pie>
           <Tooltip />
+          <Legend
+            verticalAlign="middle"
+            align="right"
+            width="10%"
+            layout="vertical"
+            iconSize={15}
+            iconType="circle"
+          />
         </PieChart>
       </ResponsiveContainer>
     </ChartBox>

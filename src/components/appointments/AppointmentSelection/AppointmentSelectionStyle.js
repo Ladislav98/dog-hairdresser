@@ -86,5 +86,5 @@ export const VerticalDivider = styled.div`
   display: flex;
   flex-direction: column;
   gap: 56px;
-  align-items: baseline;
+  align-items: center;
 `;

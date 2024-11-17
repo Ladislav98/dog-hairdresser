@@ -132,140 +132,134 @@ function AppointmentSelection() {
 
   return (
     <VerticalDivider>
-      <Row type="horizontal">
-        <Form onSubmit={handleSubmit(onSubmit, onError)}>
-          <FormRow>
-            <StyledAppointmentSelection>
-              <FaCalendarAlt />
-              <Controller
-                control={control}
-                name="appointmentDate"
-                defaultValue={null}
-                rules={{ required: "Please select a date." }}
-                render={({ field }) => (
-                  <StyledDatePicker
-                    {...field}
-                    dateFormat="dd/MM/yyyy"
-                    selected={field.value}
-                    onChange={field.onChange}
-                    minDate={new Date()}
-                    maxDate={addDays(new Date(), 30)}
-                    placeholderText="Select a date"
-                  />
-                )}
-              />
-              {errors.appointmentDate &&
-                toast.error(errors.appointmentDate.message)}
-            </StyledAppointmentSelection>
-          </FormRow>
+      <Form onSubmit={handleSubmit(onSubmit, onError)}>
+        <FormRow>
+          <StyledAppointmentSelection>
+            <FaCalendarAlt />
+            <Controller
+              control={control}
+              name="appointmentDate"
+              defaultValue={null}
+              rules={{ required: "Please select a date." }}
+              render={({ field }) => (
+                <StyledDatePicker
+                  {...field}
+                  dateFormat="dd/MM/yyyy"
+                  selected={field.value}
+                  onChange={field.onChange}
+                  minDate={new Date()}
+                  maxDate={addDays(new Date(), 30)}
+                  placeholderText="Select a date"
+                />
+              )}
+            />
+            {errors.appointmentDate &&
+              toast.error(errors.appointmentDate.message)}
+          </StyledAppointmentSelection>
+        </FormRow>
 
-          <FormRow>
-            <StyledAppointmentSelection>
-              <BsFillClockFill />
-              <Controller
-                control={control}
-                name="appointmentTime"
-                defaultValue=""
-                rules={{ required: "Please select a time." }}
-                render={({ field }) => (
-                  <StyledSelect {...field}>
-                    <option value="" disabled>
-                      Select a time
+        <FormRow>
+          <StyledAppointmentSelection>
+            <BsFillClockFill />
+            <Controller
+              control={control}
+              name="appointmentTime"
+              defaultValue=""
+              rules={{ required: "Please select a time." }}
+              render={({ field }) => (
+                <StyledSelect {...field}>
+                  <option value="" disabled>
+                    Select a time
+                  </option>
+                  {timePeriod.map((period, index) => (
+                    <option key={index} value={period}>
+                      {period}
                     </option>
-                    {timePeriod.map((period, index) => (
-                      <option key={index} value={period}>
-                        {period}
-                      </option>
-                    ))}
-                  </StyledSelect>
-                )}
-              />
-            </StyledAppointmentSelection>
-          </FormRow>
+                  ))}
+                </StyledSelect>
+              )}
+            />
+          </StyledAppointmentSelection>
+        </FormRow>
 
-          <FormRow>
-            <StyledAppointmentSelection>
-              <FaDog />
-              <Controller
-                control={control}
-                name="dogId"
-                defaultValue=""
-                rules={{ required: "Please select your dog." }}
-                render={({ field }) => (
-                  <StyledSelect
-                    {...field}
-                    onChange={(e) => {
-                      handleDogChange(e);
-                      field.onChange(e);
-                    }}
-                  >
-                    <option value="" disabled>
-                      Select your dog
+        <FormRow>
+          <StyledAppointmentSelection>
+            <FaDog />
+            <Controller
+              control={control}
+              name="dogId"
+              defaultValue=""
+              rules={{ required: "Please select your dog." }}
+              render={({ field }) => (
+                <StyledSelect
+                  {...field}
+                  onChange={(e) => {
+                    handleDogChange(e);
+                    field.onChange(e);
+                  }}
+                >
+                  <option value="" disabled>
+                    Select your dog
+                  </option>
+                  {usersDog?.map((dog) => (
+                    <option key={dog.id} value={dog.id}>
+                      {dog.dogName}
                     </option>
-                    {usersDog?.map((dog) => (
-                      <option key={dog.id} value={dog.id}>
-                        {dog.dogName}
-                      </option>
-                    ))}
-                  </StyledSelect>
-                )}
-              />
-              {errors.dogId && toast.error(errors.dogId.message)}
-            </StyledAppointmentSelection>
-          </FormRow>
+                  ))}
+                </StyledSelect>
+              )}
+            />
+            {errors.dogId && toast.error(errors.dogId.message)}
+          </StyledAppointmentSelection>
+        </FormRow>
 
+        <FormRow>
+          <div>
+            <label>Service Name:</label>
+            <StyledSelect onChange={handleServiceChange} value={serviceName}>
+              <option value="" disabled>
+                Select a service
+              </option>
+              {serviceOptions.map((service) => (
+                <option key={service.name} value={service.name}>
+                  {service.name}
+                </option>
+              ))}
+            </StyledSelect>
+          </div>
+        </FormRow>
+
+        {serviceName && selectedDogSize && (
           <FormRow>
             <div>
-              <label>Service Name:</label>
-              <StyledSelect onChange={handleServiceChange} value={serviceName}>
-                <option value="" disabled>
-                  Select a service
-                </option>
-                {serviceOptions.map((service) => (
-                  <option key={service.name} value={service.name}>
-                    {service.name}
-                  </option>
-                ))}
-              </StyledSelect>
+              <label>Price:</label>
+              <p> {price}€</p>
+              {selectedDogSize === "Large" && (
+                <AdditionalInfo>Additional 5% fee for large dog</AdditionalInfo>
+              )}
             </div>
           </FormRow>
+        )}
 
-          {serviceName && selectedDogSize && (
-            <FormRow>
-              <div>
-                <label>Price:</label>
-                <p> {price}€</p>
-                {selectedDogSize === "Large" && (
-                  <AdditionalInfo>
-                    Additional 5% fee for large dog
-                  </AdditionalInfo>
-                )}
-              </div>
-            </FormRow>
-          )}
+        <FormRow>
+          <Button
+            $variation="secondary"
+            type="button"
+            disabled={isCreating}
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+          <Button type="submit" disabled={isCreating}>
+            Submit
+          </Button>
+        </FormRow>
+      </Form>
 
-          <FormRow>
-            <Button
-              $variation="secondary"
-              type="button"
-              disabled={isCreating}
-              onClick={handleCancel}
-            >
-              Cancel
-            </Button>
-            <Button type="submit" disabled={isCreating}>
-              Submit
-            </Button>
-          </FormRow>
-        </Form>
-
-        <Section>
-          <PreviousAppointments />
-        </Section>
-      </Row>
-      <div>
+      <Row type="horizontal">
+        <PreviousAppointments />
         <DogSpendingChart userId={user.id} />
-      </div>
+      </Row>
     </VerticalDivider>
   );
 }
