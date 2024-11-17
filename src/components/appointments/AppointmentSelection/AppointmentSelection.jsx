@@ -9,7 +9,7 @@ import {
 import { addDays, format } from "date-fns";
 import { useForm, Controller } from "react-hook-form";
 import Form from "../../Form/Form";
-import { Button } from "../../../styles/generalStyles";
+import { Button, Row } from "../../../styles/generalStyles";
 import { useCreateAppointment } from "../useCreateAppointments";
 import { checkAvailability } from "../../../services/apiAppointments";
 import toast from "react-hot-toast";
@@ -21,6 +21,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Section from "../../Section/Section";
 import PreviousAppointments from "../../PreviousAppointments/PreviousAppointments";
+import DogSpendingChart from "../../charts/DogSpendingChart/DogSpendingChart";
 
 function AppointmentSelection() {
   const { createAppointment, isLoading: isCreating } = useCreateAppointment();
@@ -131,133 +132,140 @@ function AppointmentSelection() {
 
   return (
     <VerticalDivider>
-      <Form onSubmit={handleSubmit(onSubmit, onError)}>
-        <FormRow>
-          <StyledAppointmentSelection>
-            <FaCalendarAlt />
-            <Controller
-              control={control}
-              name="appointmentDate"
-              defaultValue={null}
-              rules={{ required: "Please select a date." }}
-              render={({ field }) => (
-                <StyledDatePicker
-                  {...field}
-                  dateFormat="dd/MM/yyyy"
-                  selected={field.value}
-                  onChange={field.onChange}
-                  minDate={new Date()}
-                  maxDate={addDays(new Date(), 30)}
-                  placeholderText="Select a date"
-                />
-              )}
-            />
-            {errors.appointmentDate &&
-              toast.error(errors.appointmentDate.message)}
-          </StyledAppointmentSelection>
-        </FormRow>
+      <Row type="horizontal">
+        <Form onSubmit={handleSubmit(onSubmit, onError)}>
+          <FormRow>
+            <StyledAppointmentSelection>
+              <FaCalendarAlt />
+              <Controller
+                control={control}
+                name="appointmentDate"
+                defaultValue={null}
+                rules={{ required: "Please select a date." }}
+                render={({ field }) => (
+                  <StyledDatePicker
+                    {...field}
+                    dateFormat="dd/MM/yyyy"
+                    selected={field.value}
+                    onChange={field.onChange}
+                    minDate={new Date()}
+                    maxDate={addDays(new Date(), 30)}
+                    placeholderText="Select a date"
+                  />
+                )}
+              />
+              {errors.appointmentDate &&
+                toast.error(errors.appointmentDate.message)}
+            </StyledAppointmentSelection>
+          </FormRow>
 
-        <FormRow>
-          <StyledAppointmentSelection>
-            <BsFillClockFill />
-            <Controller
-              control={control}
-              name="appointmentTime"
-              defaultValue=""
-              rules={{ required: "Please select a time." }}
-              render={({ field }) => (
-                <StyledSelect {...field}>
-                  <option value="" disabled>
-                    Select a time
-                  </option>
-                  {timePeriod.map((period, index) => (
-                    <option key={index} value={period}>
-                      {period}
+          <FormRow>
+            <StyledAppointmentSelection>
+              <BsFillClockFill />
+              <Controller
+                control={control}
+                name="appointmentTime"
+                defaultValue=""
+                rules={{ required: "Please select a time." }}
+                render={({ field }) => (
+                  <StyledSelect {...field}>
+                    <option value="" disabled>
+                      Select a time
                     </option>
-                  ))}
-                </StyledSelect>
-              )}
-            />
-          </StyledAppointmentSelection>
-        </FormRow>
+                    {timePeriod.map((period, index) => (
+                      <option key={index} value={period}>
+                        {period}
+                      </option>
+                    ))}
+                  </StyledSelect>
+                )}
+              />
+            </StyledAppointmentSelection>
+          </FormRow>
 
-        <FormRow>
-          <StyledAppointmentSelection>
-            <FaDog />
-            <Controller
-              control={control}
-              name="dogId"
-              defaultValue=""
-              rules={{ required: "Please select your dog." }}
-              render={({ field }) => (
-                <StyledSelect
-                  {...field}
-                  onChange={(e) => {
-                    handleDogChange(e);
-                    field.onChange(e);
-                  }}
-                >
-                  <option value="" disabled>
-                    Select your dog
-                  </option>
-                  {usersDog?.map((dog) => (
-                    <option key={dog.id} value={dog.id}>
-                      {dog.dogName}
+          <FormRow>
+            <StyledAppointmentSelection>
+              <FaDog />
+              <Controller
+                control={control}
+                name="dogId"
+                defaultValue=""
+                rules={{ required: "Please select your dog." }}
+                render={({ field }) => (
+                  <StyledSelect
+                    {...field}
+                    onChange={(e) => {
+                      handleDogChange(e);
+                      field.onChange(e);
+                    }}
+                  >
+                    <option value="" disabled>
+                      Select your dog
                     </option>
-                  ))}
-                </StyledSelect>
-              )}
-            />
-            {errors.dogId && toast.error(errors.dogId.message)}
-          </StyledAppointmentSelection>
-        </FormRow>
+                    {usersDog?.map((dog) => (
+                      <option key={dog.id} value={dog.id}>
+                        {dog.dogName}
+                      </option>
+                    ))}
+                  </StyledSelect>
+                )}
+              />
+              {errors.dogId && toast.error(errors.dogId.message)}
+            </StyledAppointmentSelection>
+          </FormRow>
 
-        <FormRow>
-          <div>
-            <label>Service Name:</label>
-            <StyledSelect onChange={handleServiceChange} value={serviceName}>
-              <option value="" disabled>
-                Select a service
-              </option>
-              {serviceOptions.map((service) => (
-                <option key={service.name} value={service.name}>
-                  {service.name}
-                </option>
-              ))}
-            </StyledSelect>
-          </div>
-        </FormRow>
-
-        {serviceName && selectedDogSize && (
           <FormRow>
             <div>
-              <label>Price:</label>
-              <p> {price}€</p>
-              {selectedDogSize === "Large" && (
-                <AdditionalInfo>Additional 5% fee for large dog</AdditionalInfo>
-              )}
+              <label>Service Name:</label>
+              <StyledSelect onChange={handleServiceChange} value={serviceName}>
+                <option value="" disabled>
+                  Select a service
+                </option>
+                {serviceOptions.map((service) => (
+                  <option key={service.name} value={service.name}>
+                    {service.name}
+                  </option>
+                ))}
+              </StyledSelect>
             </div>
           </FormRow>
-        )}
 
-        <FormRow>
-          <Button
-            $variation="secondary"
-            type="button"
-            disabled={isCreating}
-            onClick={handleCancel}
-          >
-            Cancel
-          </Button>
-          <Button type="submit" disabled={isCreating}>
-            Submit
-          </Button>
-        </FormRow>
-      </Form>
+          {serviceName && selectedDogSize && (
+            <FormRow>
+              <div>
+                <label>Price:</label>
+                <p> {price}€</p>
+                {selectedDogSize === "Large" && (
+                  <AdditionalInfo>
+                    Additional 5% fee for large dog
+                  </AdditionalInfo>
+                )}
+              </div>
+            </FormRow>
+          )}
 
-      <Section>
-        <PreviousAppointments />
-      </Section>
+          <FormRow>
+            <Button
+              $variation="secondary"
+              type="button"
+              disabled={isCreating}
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" disabled={isCreating}>
+              Submit
+            </Button>
+          </FormRow>
+        </Form>
+
+        <Section>
+          <PreviousAppointments />
+        </Section>
+      </Row>
+      <div>
+        <DogSpendingChart userId={user.id} />
+      </div>
     </VerticalDivider>
   );
 }

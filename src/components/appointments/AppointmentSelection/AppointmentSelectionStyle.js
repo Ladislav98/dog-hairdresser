@@ -84,6 +84,7 @@ export const AdditionalInfo = styled.p`
 
 export const VerticalDivider = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 56px;
+  align-items: baseline;
 `;

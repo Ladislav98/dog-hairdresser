@@ -35,7 +35,6 @@ export async function getAppointmentsForUser(userId) {
     console.error("User ID is undefined");
     return [];
   }
-  console.log("Fetching appointments for user:", userId);
 
   const { data, error } = await supabase
     .from("appointments")
@@ -48,6 +47,18 @@ export async function getAppointmentsForUser(userId) {
     throw new Error("Failed to fetch appointments for user");
   }
 
-  console.log("Fetched appointments:", data);
   return data;
+}
+
+export async function getDogSpending(userId) {
+  const { data, error } = await supabase.rpc("get_dog_spending", {
+    user_id: userId,
+  });
+
+  if (error) {
+    console.error("Error fetching dog spending:", error);
+    throw error;
+  }
+
+  return data; // [{ dog_name, total_spent }]
 }
