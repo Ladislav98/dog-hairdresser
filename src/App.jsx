@@ -10,6 +10,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 import Appointment from "./pages/Appointment/Appointment";
 import Account from "./pages/Account/Account";
+import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
+import { AdminRoute } from "./components/AdminRoute/AdminRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +38,12 @@ function App() {
             <Route path="account" element={<Account />} />
           </Route>
         </Route>
+        <Route element={<AdminRoute />}>
+          <Route element={<AppLayout />}>
+            <Route path="admin" element={<AdminDashboard />} />
+          </Route>
+        </Route>
+
         <Route path="*" element={<h1>page not found</h1>} />
       </Routes>
 

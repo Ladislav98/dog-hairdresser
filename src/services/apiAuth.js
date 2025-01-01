@@ -38,6 +38,24 @@ export async function getCurrentUser() {
   return data?.user;
 }
 
+export async function getCurrentAdminStatus() {
+  const user = await getCurrentUser();
+
+  if (!user) return null;
+
+  // Fetch the user's profile to get the is_admin value
+  const { data: profile, error } = await supabase
+    .from("profile")
+    .select("is_admin")
+    .eq("id", user.id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  // Return both the user and their admin status
+  return { user, isAdmin: profile.is_admin };
+}
+
 export async function logout() {
   await supabase.auth.signOut();
 }

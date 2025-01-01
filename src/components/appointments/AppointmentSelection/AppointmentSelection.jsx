@@ -19,7 +19,6 @@ import { useGetDogsFromUser } from "../../dogs/useGetDogsFromUser";
 import FormRow from "../../Form/FormRow";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Section from "../../Section/Section";
 import PreviousAppointments from "../../PreviousAppointments/PreviousAppointments";
 import DogSpendingChart from "../../charts/DogSpendingChart/DogSpendingChart";
 

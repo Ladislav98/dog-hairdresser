@@ -10,6 +10,7 @@ export function useCreateAppointment() {
     onSuccess: () => {
       toast.success("Appointment created successfully");
       queryClient.invalidateQueries({ queryKey: ["appointments"] });
+      queryClient.invalidateQueries({ queryKey: ["dogSpending"] });
     },
     onError: (err) => toast.error(err.message),
   });

@@ -1,8 +1,17 @@
+// components/MainNav/MainNav.jsx
 import { NavList, StyledNavLink } from "./MainNavStyle";
+import { useAdmin } from "../../authentication/useAdmin";
 
 function MainNav() {
+  const { isAdmin } = useAdmin();
+
   return (
     <NavList>
+      {isAdmin && (
+        <StyledNavLink to="admin">
+          <span>Admin Dashboard</span>
+        </StyledNavLink>
+      )}
       <StyledNavLink to="/">
         <span>Home</span>
       </StyledNavLink>
@@ -11,9 +20,6 @@ function MainNav() {
       </StyledNavLink>
       <StyledNavLink to="appointment">
         <span>Appointment</span>
-      </StyledNavLink>
-      <StyledNavLink to="faqs">
-        <span>FAQs</span>
       </StyledNavLink>
     </NavList>
   );
