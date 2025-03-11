@@ -9,14 +9,17 @@ import {
   DogBreed,
   DogName,
   MultipleDogsWrapper,
-  DogImage,
+  // DogImage,
 } from "./DogCardStyle";
 import { Button } from "../../styles/generalStyles";
+import { useDeleteDog } from "../dogs/useDeleteDog";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 function DogCard() {
   const { user } = useUser();
   const { usersDog, isLoading } = useGetDogsFromUser(user?.id);
   const [showForm, setShowForm] = useState(false);
+  const { deleteDog, isDeletingDog } = useDeleteDog();
 
   if (isLoading) {
     return <Spinner />;
@@ -36,9 +39,26 @@ function DogCard() {
       <MultipleDogsWrapper>
         {usersDog.map((dog) => (
           <DogCardWrapper key={dog.id}>
-            <DogImage src="https://via.placeholder.com/300" alt="Dog" />
+            {/* future update */}
+            {/* <DogImage src="https://via.placeholder.com/300" alt="Dog" /> */}
             <DogName>{dog.dogName}</DogName>
             <DogBreed>{dog.breed || "Unknown Breed"}</DogBreed>
+            <div>
+              <Button
+                $variation="secondary"
+                size="medium"
+                onClick={() => deleteDog(dog.id)}
+              >
+                {isDeletingDog ? (
+                  <Spinner size="small" />
+                ) : (
+                  <RiDeleteBin5Line />
+                )}
+              </Button>
+              {/* <Button size="small" onClick={() => handleUpdateDog(dog.id)}>
+                Edit
+              </Button> */}
+            </div>
           </DogCardWrapper>
         ))}
       </MultipleDogsWrapper>

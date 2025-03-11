@@ -22,6 +22,15 @@ export async function createDog({ dogName, breed, age, weight, userId }) {
   return dog;
 }
 
+export async function deleteDog(dogId) {
+  const { error } = await supabase.from("dogs").delete().eq("id", dogId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("An error occurred while deleting the dog");
+  }
+}
+
 export async function getDogsForUser(userId) {
   const { data: userDogs, error } = await supabase
     .from("dogs")
