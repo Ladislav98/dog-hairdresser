@@ -9,7 +9,7 @@ import {
   DogBreed,
   DogName,
   MultipleDogsWrapper,
-  // DogImage,
+  DogImage,
 } from "./DogCardStyle";
 import { Button } from "../../styles/generalStyles";
 import { useDeleteDog } from "../dogs/useDeleteDog";
@@ -39,8 +39,7 @@ function DogCard() {
       <MultipleDogsWrapper>
         {usersDog.map((dog) => (
           <DogCardWrapper key={dog.id}>
-            {/* future update */}
-            {/* <DogImage src="https://via.placeholder.com/300" alt="Dog" /> */}
+            <DogImage src={dog.dogAvatar} alt="Dog" />
             <DogName>{dog.dogName}</DogName>
             <DogBreed>{dog.breed || "Unknown Breed"}</DogBreed>
             <div>

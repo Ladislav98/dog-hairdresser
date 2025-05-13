@@ -12,7 +12,8 @@ function DogDataForm() {
   const { createDog, isLoading } = useCreateDog();
   const { user } = useUser();
 
-  function onSubmit({ dogName, breed, age, weight }) {
+  function onSubmit({ dogName, breed, age, weight, dogAvatar }) {
+    const avatarFile = dogAvatar[0];
     createDog(
       {
         dogName,
@@ -20,9 +21,13 @@ function DogDataForm() {
         age,
         weight,
         userId: user.id,
+        dogAvatar: avatarFile,
       },
       {
-        onSuccess: reset,
+        onSuccess: (data) => {
+          console.log("Dog created successfully", data);
+          reset();
+        },
       }
     );
   }
@@ -61,6 +66,7 @@ function DogDataForm() {
             })}
           />
         </FormRow>
+
         <FormRow label="Weight (kg)" error={errors?.weight?.message}>
           <Input
             type="text"
@@ -69,6 +75,16 @@ function DogDataForm() {
             {...register("weight", {
               required: "This field is required",
             })}
+          />
+        </FormRow>
+
+        <FormRow label="Dog Avatar">
+          <Input
+            type="file"
+            id="dogAvatar"
+            accept="image/*"
+            disabled={isLoading}
+            {...register("dogAvatar")}
           />
         </FormRow>
 

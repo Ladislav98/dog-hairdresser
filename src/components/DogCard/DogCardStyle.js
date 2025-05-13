@@ -4,11 +4,13 @@ export const MultipleDogsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+  align-items: center;
 `;
 
 export const DogImage = styled.img`
-  width: 100%;
-  height: auto;
+  grid-area: center;
+  width: 128px;
+  height: 128px;
   border-radius: 8px 8px 0 0;
   object-fit: cover;
 `;
@@ -22,6 +24,7 @@ export const DogCardWrapper = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const DogName = styled.h2`
