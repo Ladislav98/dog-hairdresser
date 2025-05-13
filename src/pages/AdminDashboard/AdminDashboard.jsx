@@ -1,5 +1,14 @@
+import ProfitChart from "../../components/charts/ProfitChart/ProfitChart";
+import Section from "../../components/Section/Section";
+
 function AdminDashboard() {
-  return <div>admin</div>;
+  return (
+    <>
+      <Section title="Admin Dashboard">
+        <ProfitChart />
+      </Section>
+    </>
+  );
 }
 
 export default AdminDashboard;

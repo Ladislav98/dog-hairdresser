@@ -20,7 +20,6 @@ const ChartBox = styled.div`
   & > *:first-child {
     margin-bottom: 1.6rem;
   }
-
   & .recharts-pie-label-text {
     font-weight: 600;
   }
