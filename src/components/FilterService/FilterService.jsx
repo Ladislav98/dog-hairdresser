@@ -35,7 +35,7 @@ const FilterButton = styled.button`
   }
 `;
 
-function FilterP() {
+function FilterService() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   function handleClick(value) {
@@ -56,4 +56,4 @@ function FilterP() {
   );
 }
 
-export default FilterP;
+export default FilterService;

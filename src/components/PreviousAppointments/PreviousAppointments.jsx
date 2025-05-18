@@ -11,14 +11,19 @@ import {
   StyledTableTitle,
 } from "./PreviousAppointmentsStyle";
 import { Row } from "../../styles/generalStyles";
-import Filter from "../Filter/Filter";
 import { useSearchParams } from "react-router-dom";
+import FilterService from "../FilterService/FilterService";
 
 function PreviousAppointments() {
   const { appointments, isLoading, error } = useUserAppointments();
   const [searchParams] = useSearchParams();
   const filterValue = searchParams.get("service") || "all";
-  console.log("appoint", appointments);
+
+  if (isLoading) return <p>Loading appointments...</p>;
+  if (error) return <p>Error fetching appointments: {error.message}</p>;
+
+  if (!appointments || appointments.length === 0)
+    return <p>No previous appointments found.</p>;
 
   let filteredAppointments;
   //moze bit i reusable filter
@@ -36,17 +41,11 @@ function PreviousAppointments() {
     );
   }
 
-  if (isLoading) return <p>Loading appointments...</p>;
-  if (error) return <p>Error fetching appointments: {error.message}</p>;
-
-  if (!appointments || appointments.length === 0)
-    return <p>No previous appointments found.</p>;
-
   return (
     <StyledTableContainer>
       <Row type="horizontal">
         <StyledTableTitle>Previous Appointments</StyledTableTitle>
-        <Filter />
+        <FilterService />
       </Row>
 
       <StyledTable>
