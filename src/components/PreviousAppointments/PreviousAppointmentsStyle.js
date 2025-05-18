@@ -6,6 +6,7 @@ export const StyledTableContainer = styled.div`
   background-color: var(--color-grey-0);
   border-radius: 8px;
   border: 1px solid var(--color-grey-200);
+  min-width: 500px;
 `;
 
 export const StyledTable = styled.table`

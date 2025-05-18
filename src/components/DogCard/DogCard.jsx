@@ -45,7 +45,7 @@ function DogCard() {
             <div>
               <Button
                 $variation="secondary"
-                size="medium"
+                size="small"
                 onClick={() => deleteDog(dog.id)}
               >
                 {isDeletingDog ? (

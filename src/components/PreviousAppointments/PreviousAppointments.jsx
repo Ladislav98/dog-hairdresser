@@ -10,9 +10,31 @@ import {
   StyledTableRow,
   StyledTableTitle,
 } from "./PreviousAppointmentsStyle";
+import { Row } from "../../styles/generalStyles";
+import Filter from "../Filter/Filter";
+import { useSearchParams } from "react-router-dom";
 
 function PreviousAppointments() {
   const { appointments, isLoading, error } = useUserAppointments();
+  const [searchParams] = useSearchParams();
+  const filterValue = searchParams.get("service") || "all";
+  console.log("appoint", appointments);
+
+  let filteredAppointments;
+  //moze bit i reusable filter
+  if (filterValue === "all") {
+    filteredAppointments = appointments;
+  }
+  if (filterValue === "classic-plan") {
+    filteredAppointments = appointments.filter(
+      (appointment) => appointment.serviceName === "Classic Plan"
+    );
+  }
+  if (filterValue === "full-plan") {
+    filteredAppointments = appointments.filter(
+      (appointment) => appointment.serviceName === "Full Plan"
+    );
+  }
 
   if (isLoading) return <p>Loading appointments...</p>;
   if (error) return <p>Error fetching appointments: {error.message}</p>;
@@ -22,7 +44,10 @@ function PreviousAppointments() {
 
   return (
     <StyledTableContainer>
-      <StyledTableTitle>Previous Appointments</StyledTableTitle>
+      <Row type="horizontal">
+        <StyledTableTitle>Previous Appointments</StyledTableTitle>
+        <Filter />
+      </Row>
 
       <StyledTable>
         <StyledTableHead>
@@ -36,7 +61,7 @@ function PreviousAppointments() {
           </StyledTableRow>
         </StyledTableHead>
         <StyledBody>
-          {appointments.map((appointment) => (
+          {filteredAppointments.map((appointment) => (
             <StyledTableRow key={appointment.id}>
               <StyledTableData>{appointment.dogs.dogName}</StyledTableData>
               <StyledTableData>
