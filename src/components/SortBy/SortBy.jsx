@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
 import Select from "../Select/Select";
-import { useEffect } from "react";
 
 const StyledSort = styled.div`
   border: 1px solid var(--color-grey-100);
