@@ -13,6 +13,7 @@ import {
 import { Row } from "../../styles/generalStyles";
 import { useSearchParams } from "react-router-dom";
 import FilterService from "../FilterService/FilterService";
+import SortBy from "../SortBy/SortBy";
 
 function PreviousAppointments() {
   const { appointments, isLoading, error } = useUserAppointments();
@@ -41,11 +42,32 @@ function PreviousAppointments() {
     );
   }
 
+  //sorting
+  const sortBy = searchParams.get("sortBy") || "date-asc";
+  const [field, direction] = sortBy.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+
+  const sortedAppointments = [...filteredAppointments].sort((a, b) => {
+    if (field === "dogName") {
+      return a.dogs.dogName.localeCompare(b.dogs.dogName) * modifier;
+    }
+    if (field === "date") {
+      return (
+        (new Date(a.appointmentDate) - new Date(b.appointmentDate)) * modifier
+      );
+    }
+    if (field === "price") {
+      return (a.price - b.price) * modifier;
+    }
+    return 0;
+  });
+
   return (
     <StyledTableContainer>
       <Row type="horizontal">
         <StyledTableTitle>Previous Appointments</StyledTableTitle>
         <FilterService />
+        <SortBy />
       </Row>
 
       <StyledTable>
@@ -60,7 +82,7 @@ function PreviousAppointments() {
           </StyledTableRow>
         </StyledTableHead>
         <StyledBody>
-          {filteredAppointments.map((appointment) => (
+          {sortedAppointments.map((appointment) => (
             <StyledTableRow key={appointment.id}>
               <StyledTableData>{appointment.dogs.dogName}</StyledTableData>
               <StyledTableData>
